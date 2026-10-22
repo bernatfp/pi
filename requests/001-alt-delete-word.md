@@ -1,6 +1,6 @@
 # Support Alt+Delete to delete the previous word in the TUI editor
 
-**Status:** idea
+**Status:** done (already supported upstream)
 
 ## Problem
 
@@ -18,9 +18,23 @@ Bind Alt+Delete (and the common equivalents that terminals emit for it, e.g. Alt
 - Match readline semantics for word boundaries (skip trailing whitespace, then delete the word).
 - Ideally also support Alt+D / forward-delete-word for symmetry.
 
-## Notes
+## Resolution
 
-- Related existing bindings to check in pi's keybindings docs/config: Ctrl+W (unix-word-rubout)
-  may already exist; Alt+Delete should behave similarly.
-- Terminals encode Option/Alt differently (ESC-prefix vs. meta bit); handling both encodings
-  would make this work across iTerm2, Terminal.app, kitty, etc.
+Pi already ships these defaults (see docs/keybindings.md):
+
+- `tui.editor.deleteWordBackward`: `ctrl+w`, `alt+backspace`
+- `tui.editor.deleteWordForward`: `alt+d`, `alt+delete`
+
+On macOS the "delete" key is backspace, so Option+Delete maps to `alt+backspace` and works
+once the terminal sends Option as Meta/Esc+:
+
+- iTerm2: Profiles → Keys → Left Option key → "Esc+"
+- Terminal.app: Profiles → Keyboard → "Use Option as Meta key"
+
+Custom bindings go in `~/.pi/agent/keybindings.json`, applied with `/reload`:
+
+```json
+{
+  "tui.editor.deleteWordBackward": ["ctrl+w", "alt+backspace"]
+}
+```
