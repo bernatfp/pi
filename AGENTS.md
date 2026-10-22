@@ -21,3 +21,4 @@ When the user describes a new improvement request:
 
 - 001: Alt+Delete word-delete — already supported by pi (`alt+backspace`); real fix was Ghostty config `macos-option-as-alt = true` in `~/Library/Application Support/com.mitchellh.ghostty/config`.
 - 002: `/exit` alias for `/quit` — implemented as extension `~/.pi/agent/extensions/exit-command.ts` (copy in `extensions/`).
+- 003: `/clear` alias for `/new` — implemented as extension `~/.pi/agent/extensions/clear-command.ts` (copy in `extensions/`); uses `ctx.newSession()`.
