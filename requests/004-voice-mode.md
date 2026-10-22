@@ -39,7 +39,8 @@ lower accuracy than Whisper on technical jargon.
 Implemented as extension `~/.pi/agent/extensions/voice-mode.ts` (copy in
 [`extensions/voice-mode.ts`](../extensions/voice-mode.ts)).
 
-- `/voice` or `ctrl+shift+v` toggles dictation.
+- `/voice` or `alt+v` toggles dictation (requires `macos-option-as-alt = true`
+  in Ghostty, already set per request 001).
 - Spawns `hear -d -p` (on-device recognition, punctuation); falls back to
   server-backed recognition if the on-device model is unavailable.
 - Partial hypotheses from stdout are mirrored live into the editor via

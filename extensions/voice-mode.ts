@@ -8,7 +8,7 @@
  *
  * Usage:
  *   /voice              — toggle recording on/off
- *   ctrl+shift+v        — same toggle as a shortcut
+ *   alt+v               — same toggle as a shortcut
  *
  * While recording, a "🎤 listening" widget is shown and your words appear
  * in the editor in real time. Toggle off (or just stop talking and review)
@@ -164,7 +164,7 @@ export default function voiceMode(pi: ExtensionAPI) {
 			clearState();
 		});
 
-		ctx.ui.setWidget(WIDGET_KEY, ["🎤 listening — /voice or ctrl+shift+v to stop"]);
+		ctx.ui.setWidget(WIDGET_KEY, ["🎤 listening — /voice or alt+v to stop"]);
 	}
 
 	async function toggle(ctx: ExtensionContext) {
@@ -198,7 +198,7 @@ export default function voiceMode(pi: ExtensionAPI) {
 		},
 	});
 
-	pi.registerShortcut(Key.ctrlShift("v"), {
+	pi.registerShortcut(Key.alt("v"), {
 		description: "Toggle voice dictation",
 		handler: async (ctx) => {
 			await toggle(ctx);
