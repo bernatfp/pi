@@ -23,3 +23,4 @@ When the user describes a new improvement request:
 - 002: `/exit` alias for `/quit` — implemented as extension `~/.pi/agent/extensions/exit-command.ts` (copy in `extensions/`).
 - 003: `/clear` alias for `/new` — implemented as extension `~/.pi/agent/extensions/clear-command.ts` (copy in `extensions/`); uses `ctx.newSession()`.
 - 004: Voice mode — implemented as extension `~/.pi/agent/extensions/voice-mode.ts` (copy in `extensions/`); streams live dictation into the editor using the `hear` CLI (Apple SFSpeechRecognizer, installed at `~/.local/bin/hear`). Toggle with `/voice` or `alt+v`.
+- 005: Antseed balance in footer — implemented as extension `~/.pi/agent/extensions/antseed-balance.ts` (copy in `extensions/`); shows deposits balance via the buyer proxy's `/_antseed/balances` control-plane endpoint (auth: `~/.antseed/gateway/buyer-control.secret`), yellow < $5, red < $1. `/balance` for details.
