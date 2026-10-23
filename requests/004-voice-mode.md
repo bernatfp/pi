@@ -39,12 +39,22 @@ lower accuracy than Whisper on technical jargon.
 Implemented as extension `~/.pi/agent/extensions/voice-mode.ts` (copy in
 [`extensions/voice-mode.ts`](../extensions/voice-mode.ts)).
 
-- `/voice` or `alt+v` toggles dictation (requires `macos-option-as-alt = true`
-  in Ghostty, already set per request 001).
+- `alt+v` hold = push-to-talk (record while held, stop on release); quick tap =
+  toggle mode (tap again to stop). `/voice` also toggles. Requires
+  `macos-option-as-alt = true` in Ghostty (set per request 001; note Ghostty
+  must be restarted after config changes — a running instance predating the
+  setting composes √ instead of sending alt+v).
+- Push-to-talk release detection uses Kitty keyboard protocol key-release
+  events via `ctx.ui.onTerminalInput()` + `isKeyRelease()`/`isKeyRepeat()`
+  from pi-tui; on legacy terminals alt+v degrades to a plain toggle.
 - Spawns `hear -d -p` (on-device recognition, punctuation); falls back to
   server-backed recognition if the on-device model is unavailable.
 - Partial hypotheses from stdout are mirrored live into the editor via
   `ctx.ui.setEditorText()`, appended to whatever text was already there.
+  `setEditorText()` alone does not trigger a TUI render (text stayed invisible
+  until the next keypress); the extension refreshes its widget on every
+  partial, which calls `requestRender()` and makes streaming visible. Worth an
+  upstream fix: `setEditorText` should request a render.
 - Cumulative-partial heuristic commits an utterance segment when the
   recognizer starts a new, shorter hypothesis.
 - Shows a `🎤 listening` widget while recording; cleans up the child process
