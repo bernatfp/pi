@@ -38,22 +38,33 @@ custom providers populate.
 - "Available" is the deposits balance; "reserved" is held by open payment
   channels and flows back when channels settle, so available is the right
   top-up signal.
-- pi's `ctx.ui.setStatus(key, text)` renders in the default footer's
-  status area (right side), so no footer replacement is needed.
+- pi's `ctx.ui.setStatus(key, text)` renders on a separate extension-status
+  line below the stats line, not next to the model name. Placing the
+  balance on the right of the stats line, next to the model, requires
+  replacing the footer via `ctx.ui.setFooter()` with a replica of the
+  default footer (cwd/branch line + stats line + extension-status line).
 
 ## Resolution
 
 Implemented as extension `~/.pi/agent/extensions/antseed-balance.ts` (copy in
 [`extensions/antseed-balance.ts`](../extensions/antseed-balance.ts)).
 
-- Shows `⬡ $X.XX` in the footer status area when the active model's
-  provider is `antseed` (or its baseUrl points at `localhost:8377`).
+- Shows `⬡ $X.XX` on the right side of the footer stats line, directly
+  before the model name (e.g. `⬡ $6.57 • antseed`), when the active
+  model's provider is `antseed` (or its baseUrl points at
+  `localhost:8377`). Implemented as a custom footer that replicates the
+  default footer's layout (cwd/branch/session line, stats line, other
+  extensions' status line) and appends the balance to the right side.
 - Colors: dim ≥ $5, `warning` (yellow) < $5, `error` (red) < $1.
 - Polls every 60 s, refreshes after each agent run settles
   (`agent_settled`), and clears itself when switching to a non-Antseed
   model (`model_select`).
 - Appends `~` to the amount when the daemon reports the value as stale
   (chain temporarily unreadable).
+- Restores the default footer when switching to a non-Antseed model.
+- Upstream nicety: a `ctx.ui.setStatus()` placement option (e.g.
+  `{ align: "right", line: "stats" }`) would avoid replicating the whole
+  footer for this.
 - `/balance` command forces a refresh and shows available / reserved /
   wallet amounts in a notification.
 - Degrades gracefully: shows `⬡ $?` when the proxy is down or the secret
