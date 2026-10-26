@@ -28,6 +28,8 @@ Pi already ships these defaults (see docs/keybindings.md):
 On macOS the "delete" key is backspace, so Option+Delete maps to `alt+backspace` and works
 once the terminal sends Option as Meta/Esc+:
 
+- Ghostty: set `macos-option-as-alt = true` in
+  `~/Library/Application Support/com.mitchellh.ghostty/config`, then restart Ghostty.
 - iTerm2: Profiles → Keys → Left Option key → "Esc+"
 - Terminal.app: Profiles → Keyboard → "Use Option as Meta key"
 
