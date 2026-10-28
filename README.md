@@ -19,8 +19,9 @@ A place to collect and version-control ideas, requests, and proposals for improv
 | [003](requests/003-clear-command.md) | `/clear` alias for `/new` | done | Local extension. |
 | [004](requests/004-voice-mode.md) | Streaming voice dictation | done | Local extension using `hear`; `/voice` or Alt+V. |
 | [005](requests/005-antseed-balance-footer.md) | Antseed balance in the footer | done | Local extension; `/balance` shows details. |
+| [006](requests/006-interrupt-ongoing-agent-action.md) | Interrupt an ongoing agent action | done | Built into pi; press **Esc** to cancel the current run and tool calls. |
 
-All five requests are resolved. See the linked documents for implementation notes,
+All six requests are resolved. See the linked documents for implementation notes,
 prerequisites, and possible upstream improvements.
 
 ## Local extensions
@@ -39,7 +40,10 @@ mkdir -p ~/.pi/agent/extensions
 cp extensions/*.ts ~/.pi/agent/extensions/
 ```
 
-Run `/reload` inside pi to apply changes. Voice mode requires macOS and
+Run `/reload` inside pi to apply changes. Press **Esc** to interrupt a running
+agent; **Ctrl+C** clears the editor or exits rather than cancelling the run.
+
+Voice mode requires macOS and
 [`hear`](https://github.com/sveinbjornt/hear) at `~/.local/bin/hear`; the Antseed
 extension requires the local buyer proxy and its gateway control secret. Alt
 shortcuts require the terminal to send Option as Alt (Ghostty:
